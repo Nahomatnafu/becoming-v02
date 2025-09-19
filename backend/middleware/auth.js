@@ -14,7 +14,10 @@ const auth = async (req, res, next) => {
     }
 
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET environment variable is required');
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     // Check if user still exists
     const user = await User.findById(decoded.userId).select('-password');
