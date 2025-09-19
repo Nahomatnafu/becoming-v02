@@ -9,6 +9,7 @@ function App() {
   const [cells, setCells] = useState<Cell[]>(
     Array.from({ length: 90 }, (_, i) => ({ id: i + 1, completed: false }))
   );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleCell = (id: number) => {
     setCells(cells.map(cell =>
@@ -76,6 +77,114 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Sidebar Toggle Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200"
+      >
+        <svg
+          className={`w-5 h-5 text-gray-600 transition-transform duration-200 ${sidebarOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Sidebar */}
+      <div className={`fixed left-0 top-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-40 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <div className="p-6 pt-20">
+          {/* Current Habit Card */}
+          <div className="mb-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Current Habit</h3>
+            <div className="bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg p-4 text-white">
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-sm opacity-90">Day {currentDay} of 90</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h4 className="text-lg font-medium">Morning Workout</h4>
+              <div className="w-full bg-white/20 rounded-full h-2 mt-3">
+                <div
+                  className="bg-white h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${progressPercentage}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="mb-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Stats</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-700">Current Streak</span>
+                </div>
+                <span className="font-medium text-green-600">{Math.min(currentDay - 1, completedCount)} days</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-gray-700">Completed</span>
+                </div>
+                <span className="font-medium text-blue-600">{completedCount}/90</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="text-gray-700">Success Rate</span>
+                </div>
+                <span className="font-medium text-purple-600">{progressPercentage}%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* My Templates */}
+          <div>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-medium text-gray-900">My Templates</h3>
+              <button className="text-blue-600 hover:text-blue-700">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </button>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                <span className="text-gray-700">Morning Workout</span>
+              </div>
+              <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-gray-700">Daily Reading</span>
+              </div>
+              <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                <span className="text-gray-700">Meditation</span>
+              </div>
+              <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <div className="w-3 h-3 bg-pink-500 rounded-full"></div>
+                <span className="text-gray-700">Journaling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
