@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-family: 'Outfit', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .brain-cell {
+    @apply transition-all duration-300 ease-in-out cursor-pointer;
+  }
+  
+  .brain-cell:hover {
+    @apply scale-105 drop-shadow-lg;
+  }
+  
+  .brain-cell.completed {
+    @apply animate-pulse-slow;
+  }
+  
+  .sidebar-transition {
+    @apply transition-transform duration-300 ease-in-out;
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+}
