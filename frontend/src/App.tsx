@@ -118,33 +118,7 @@ function App() {
             </div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="mb-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Stats</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-700">Current Streak</span>
-                </div>
-                <span className="font-medium text-green-600">{Math.min(currentDay - 1, completedCount)} days</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-gray-700">Completed</span>
-                </div>
-                <span className="font-medium text-blue-600">{completedCount}/90</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  <span className="text-gray-700">Success Rate</span>
-                </div>
-                <span className="font-medium text-purple-600">{progressPercentage}%</span>
-              </div>
-            </div>
-          </div>
+
 
           {/* My Templates */}
           <div>
